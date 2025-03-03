@@ -1,23 +1,20 @@
 import {View,Text,StyleSheet,Pressable} from 'react-native';
-import { useState } from 'react';
 import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
-function PrimaryButton({children,onPress,option}){
+function Chip({children,onPress,option,value,name}){
 function pressHandler(data){
-    onPress()
+    onPress(value)
 }
 
 let options=[];
 switch (option) {
-    case 'login':
-        options=<AntDesign style={{marginLeft:10}} name="lock" size={25} />
+    case 'ant':
+        options=<AntDesign name={name} size={15} />
         break;
 
-    case 'addTruck':
-        options=<AntDesign style={{marginLeft:10}} name="upload" size={20} />
-        break;
-    case 'phone':
-        option = <AntDesign name="phone" size={25} color='red'/>
+    case 'ion':
+        options=<Ionicons name={name} size={15} color='black'/>
         break;
 }
     return (
@@ -32,11 +29,8 @@ switch (option) {
         
     )
 }
-// 8399:arkum 1300
-// 8399:
-// 8399:
 
-export default PrimaryButton;
+export default Chip;
 
 const styles = StyleSheet.create({
     buttonOuter:{

@@ -1,6 +1,7 @@
 import {View,TextInput,Button, Text,StyleSheet} from 'react-native';
 import { useState } from 'react';
 import {update} from '../util/http';
+import {deleteT} from '../util/http';
 import PrimaryButton from '../components/PrimaryButton';
 import Dropdown from '../components/Dropdown';
 import PrimaryTextInput from '../components/PrimaryTextInput';
@@ -44,7 +45,7 @@ function TruckItemDetail(props){
     }
 
     function changePanF(data){
-            changePan(data);
+            changePan(data.replace(/ /g,''));
         }
     
     function changeWF(data){
@@ -85,7 +86,6 @@ function TruckItemDetail(props){
             "website":"nrcm_m",
             "tbid":props.data._id,
         }
-
         deleteT(data).then(res=>{alert(res.Status);})
         
     }
@@ -120,10 +120,10 @@ return (
             Weight
         </PrimaryTextInput>
 
-        <View style={styles.viewI}>
+        <View style={{padding:5,flexDirection:'row',width:'100%',justifyContent:'space-between'}}>
 
             <Text style={styles.texth}>Type {blinker}</Text>
-            <Text style={styles.texth}>{tov}</Text>
+            <Text style={styles.texthl}>{tov}</Text>
             <Dropdown data={[
                 { value: "Open", label: "Open" },
                 { value: "Container", label: "Container" }
@@ -194,6 +194,12 @@ const styles=StyleSheet.create({
         paddingBottom:1,
         marginTop:10,
         width:'20%',
+        fontWeight:'bold'
+    },
+    texthl:{
+        paddingBottom:1,
+        marginTop:10,
+        width:'10%',
         fontWeight:'bold'
     },
     textc:{

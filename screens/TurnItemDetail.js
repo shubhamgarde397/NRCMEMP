@@ -5,8 +5,7 @@ import PrimaryButton from '../components/PrimaryButton'
 function TurnItemDetail(props){
   
 function makecall(data){
-    console.log(props.data.contacttb);
-    
+
     // Linking.openURL(`tel:${data}`)
 }
     const contactOV=[]

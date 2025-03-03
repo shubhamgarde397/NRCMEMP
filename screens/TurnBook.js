@@ -80,7 +80,7 @@ const styles=StyleSheet.create({
     outer:{
         flex:1,
         flexDirection:'column',
-        paddingTop:40,
+        // paddingTop:40,
         backgroundColor:'wheat'
         
     },

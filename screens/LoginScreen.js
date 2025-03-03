@@ -5,7 +5,7 @@ import TitleScreen from './TitleScreen';
 import { useNavigation } from '@react-navigation/native';
 import PrimaryButton from '../components/PrimaryButton';
 import { AntDesign } from "@expo/vector-icons";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 function LoginScreen(){
     const navigation = useNavigation();
 
@@ -14,11 +14,11 @@ const [password,setPassword] =useState('');
 
 
 function setUserNameF(data){
-    setUserName(data);
+    setUserName(data.replace(/ /g,''));
 }
 
 function setPasswordF(data){
-    setPassword(data);
+    setPassword(data.replace(/ /g,''));
 }
 
 
@@ -35,9 +35,11 @@ function Login(){
     store(data)
         .then(res=>{
             if(res['Login']){
+                storeData({'userid':res['nrcmid'],'username':res['displayName']})
+
             navigation.navigate(
                 'Main',
-                {screen:'Add'},
+                {screen:'Display'},
                 {params:{userid:res['nrcmid']}});
 
             }
@@ -48,12 +50,17 @@ function Login(){
     
 }
 
+
+const storeData = async (value) => {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('userData', jsonValue);
+  };
     return (
 <View style={styles.screen}>
     <TitleScreen/>
 
         <View style={styles.innerView}>
-            <TextInput onChangeText={setUserNameF} keyboardType='name-phone-pad' value={username} onChange={setUserNameF} style={styles.text} placeholder='Username'/>
+            <TextInput onChangeText={setUserNameF} keyboardType='name-phone-pad' value={username} style={styles.text} placeholder='Username'/>
             <TextInput onChangeText={setPasswordF} keyboardType='visible-password' value={password} placeholder='Password' style={styles.text}/>
         </View>
         <View style={styles.button}>
@@ -93,7 +100,7 @@ const styles = StyleSheet.create({
         fontWeight:'bold'
     },
     screen:{
-        paddingTop:45,
+        // paddingTop:45,
         backgroundColor:'wheat',
         flex:1
     }

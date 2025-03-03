@@ -3,60 +3,31 @@ import TitleScreen from './TitleScreen';
 import {useState} from 'react';
 import {display} from '../util/http'
 import TruckItem from './TruckItem';
+import LRNO from './LRNO';
 
+function HomeSnippet({params,value}){
+    let data=[]
 
-function Display({params}){
-
-    const [alertCount,setalertCount] = useState(0);
-    const [trucks,setTruck] = useState([]);
-
-    function DisplayF(){
-        let data={
-            
-        "method":"displayT",
-        "todayDate":"2025-01-10",
-        "website":"nrcm_m"
-    }
-    
-     display(data).then(res=>{
-        if(res.Data[0]['arr'].length==0){
-            alert('No Trucks!')
-            setTruck([]);
-        setalertCount(0)
-        }else{
-        setTruck(res.Data[0]['arr']);
-        setalertCount(res.Data[1]['alertCount'])
-        }
-    })
-        
-    }
+     switch (value) {
+        case '4':
+            data=<LRNO></LRNO>
+        break;
+     }
 
     return (
 
 <View style={styles.outer}>
  
-   <View style={styles.screen}>
-        <TitleScreen/>
+  
+    <View style={styles.screen}>
+        {data}
     </View>
-    <Text style={styles.alertText}>{alertCount} missing entries!</Text>
-<FlatList alwaysBounceVertical={false} data={trucks}
- renderItem={truckData=>{
-    return (
-        <TruckItem data={truckData.item} display='display'/>
-    )
- }}
- keyExtractor={(item,index)=>{
-    return item._id;
- }}
- />
-    
-    <Button style={styles.button} onPress={DisplayF} title='Get'></Button>
 
 </View>
     )
 }
 
-export default Display;
+export default HomeSnippet;
 
 const styles=StyleSheet.create({
     alertText:{

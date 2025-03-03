@@ -1,30 +1,47 @@
 import { View,Select, Text,TextInput,StyleSheet, Button,TouchableOpacity  } from 'react-native';
 import TitleScreen from './TitleScreen';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {add} from '../util/http'
 import Dropdown from '../components/Dropdown';
 import PrimaryButton from '../components/PrimaryButton';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 function Add({route}){
-    const [truckno,setTruckNo] =useState('TN');
+    const [truckno,setTruckNo] =useState('');
     const [type,setType] =useState('');
+    const [username,setUsername] = useState('');
+    const [userid,setUserid] = useState('');
+
+    useEffect(() => {get()}, [])
+
+   get = async () => {
+    const jsonValue = await AsyncStorage.getItem('userData');
+    setUsername(jsonValue.username);
+    setUserid(jsonValue.userid);
+   }
+
+   
 
     function setTruckNoF(data){
-        setTruckNo(data);
+        setTruckNo(data.replace(/ /g,''));
     }
 
     function setTypeF(data){
         setType(data.label);
     }
 
+    
+
     function AddF(){  
+
         let data={
             'truckno':truckno,
+            'userid':userid,
             'type':type,
             "method":"addT",
             "todayDate":"2025-01-10",
             "website":"nrcm_m"
         }
+        
     
         add(data).then(res=>{alert(res.Status)})
     }
@@ -54,6 +71,7 @@ function Add({route}){
                 placeholder="Select Type" />
         </View>
         <PrimaryButton onPress={AddF} option='addTruck'>Add Truck</PrimaryButton>
+        {/* <PrimaryButton onPress={get} option={'get'}>Get</PrimaryButton> */}
     </View>
 
 
@@ -65,7 +83,7 @@ export default Add;
 
 const styles=StyleSheet.create({
     outer:{
-        paddingTop:40,
+        // paddingTop:40,
         backgroundColor:'wheat',
         flex:1
     },
