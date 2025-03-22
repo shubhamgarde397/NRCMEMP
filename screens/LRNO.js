@@ -6,7 +6,7 @@ import Dropdown from '../components/Dropdown';
 import PrimaryButton from '../components/PrimaryButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TruckItem from './TruckItem';
-import {display} from '../util/http'
+import {displayMBS} from '../util/http'
 
 function LRNO({route}){
     const [lrnos,setLR] =useState([]);
@@ -23,15 +23,19 @@ function LRNO({route}){
     setUserid(jsonValue.userid);
    }
 
+   function setTypeF(){}
+    
+
    function getEmptyLRNOF(){
  let data={
             
-        "method":"displayemptyLR",
+        "method":"getMonthlyBySeries",
         "todayDate":"2025-01-10",
         "website":"nrcm_m"
     }
     
-     display(data).then(res=>{
+    displayMBS(data).then(res=>{
+        
         if(res.Data[0]['arr'].length==0){
             alert('No LR!')
             setLR([]);
@@ -39,26 +43,22 @@ function LRNO({route}){
             setLR(res.Data[0]['arr']);
         }
     })
-        
+                                                                 
     }
 
     return (
 
 <View style={styles.outer}>
  
-    <Text>LRNO</Text>
-   
-    <FlatList alwaysBounceVertical={false} data={lrnos}
- renderItem={truckData=>{
-    return (
-        <TruckItem data={truckData.item} display='display'/>
-    )
- }}
- keyExtractor={(item,index)=>{
-    return item._id;
- }}
- />
 
+  <View style={styles.viewI}>
+              <Text style={styles.texth}>Type of Vehicle</Text>
+              <Dropdown data={lrnos.loadingDate}
+                  onChange={setTypeF}
+                  style={styles.textD}
+                  valueTOV={""}
+                  placeholder="Select Type" />
+          </View>
 
 
    <Button onPress={getEmptyLRNOF} title='Get'></Button>

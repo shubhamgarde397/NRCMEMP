@@ -29,7 +29,7 @@ function Add({route}){
         setType(data.label);
     }
 
-    
+ 
 
     function AddF(){  
 

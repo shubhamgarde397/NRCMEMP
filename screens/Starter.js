@@ -9,7 +9,6 @@ import { AntDesign } from "@expo/vector-icons";
 import Add from './Add';
 import Home from './Home';
 import Display from './Display';
-import TurnBook from './TurnBook'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MainPageMore = createBottomTabNavigator({
@@ -43,21 +42,6 @@ const MainPageMore = createBottomTabNavigator({
           }
         }
       },
-      Turn: 
-      {
-        screen:TurnBook,
-        options:{
-          tabBarVisibilityAnimationConfig:false,
-          headerShown:false,
-          tabBarIcon: (tabInfo) => {
-            return (
-              <AntDesign name="car" size={25} />
-            );
-          }
-        }
-      },
-      
-      
       Add:
       {
           screen:Add,

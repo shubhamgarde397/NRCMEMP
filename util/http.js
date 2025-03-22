@@ -34,3 +34,12 @@ export async function deleteT(data){
         data)
         return res.data;
 }
+
+export async function displayMBS(data){
+    console.log('Came');
+    
+    const res = await axios.post(
+        'https://wxbwagxbqh.execute-api.ap-south-1.amazonaws.com/dev/turnbook',
+        data)
+        return res.data;
+}
