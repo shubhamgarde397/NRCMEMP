@@ -47,7 +47,7 @@ function Home({params}){
         </View>
     </View>
 
-    <View style={{flex:5}}>
+    <View style={{flex:1}}>
        <HomeSnippet value={viewParam}></HomeSnippet>
     </View>
 {/* lrno

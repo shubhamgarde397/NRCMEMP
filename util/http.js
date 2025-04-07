@@ -7,6 +7,15 @@ export async function store(data){
         return res.data.Data[0]
 }
 
+export async function storeImg(data){
+    const res = await axios.post(
+        'https://wxbwagxbqh.execute-api.ap-south-1.amazonaws.com/dev/commoninformation',
+        data)
+        console.log(res);
+        
+        return res.data.Data[0]
+}
+
 export async function add(data){
     const res = await axios.post(
         'https://wxbwagxbqh.execute-api.ap-south-1.amazonaws.com/dev/commoninformation',
@@ -36,8 +45,6 @@ export async function deleteT(data){
 }
 
 export async function displayMBS(data){
-    console.log('Came');
-    
     const res = await axios.post(
         'https://wxbwagxbqh.execute-api.ap-south-1.amazonaws.com/dev/turnbook',
         data)

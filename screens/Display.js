@@ -24,6 +24,8 @@ function Display({params}){
             setTruck([]);
         setalertCount(0)
         }else{
+            console.log(res.Data[0]['arr']);
+            
         setTruck(res.Data[0]['arr']);
         setalertCount(res.Data[1]['alertCount'])
         }
